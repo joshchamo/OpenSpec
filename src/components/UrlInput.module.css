@@ -76,13 +76,15 @@
 }
 
 .suggestions {
-  margin-top: 1rem;
+  margin-top: 1.5rem;
   display: flex;
   align-items: center;
   gap: 1rem;
   font-size: 0.85rem;
   color: var(--text-muted);
   justify-content: center;
+  flex-wrap: wrap;
+  padding: 0 1rem;
 }
 
 .suggestionBtn {
