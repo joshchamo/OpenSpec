@@ -92,6 +92,64 @@
   50% { opacity: 1; transform: scale(1.2); background: var(--accent); }
 }
 
+.logConsole {
+  margin: 2rem auto 0;
+  max-width: 800px;
+  background: #000;
+  border: 1px solid var(--card-border);
+  border-radius: 12px;
+  overflow: hidden;
+  text-align: left;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.logHeader {
+  background: #111;
+  padding: 0.5rem 1rem;
+  border-bottom: 1px solid var(--card-border);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.logBody {
+  padding: 1rem;
+  font-family: 'Monaco', 'Consolas', monospace;
+  font-size: 0.75rem;
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.logLine {
+  margin-bottom: 0.4rem;
+  line-height: 1.4;
+}
+
+.logTimestamp {
+  color: #444;
+  margin-right: 0.75rem;
+}
+
+.info { color: #94a3b8; }
+.error { color: #ef4444; }
+.success { color: #10b981; }
+
+.logPulse {
+  display: inline-block;
+  animation: blink 1s step-end infinite;
+  color: var(--accent);
+  font-weight: bold;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
 @media (max-width: 768px) {
   .hero h2 {
     font-size: 2.5rem;

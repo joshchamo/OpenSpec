@@ -1,25 +1,40 @@
 import { dereference } from "@readme/openapi-parser";
 import { AnalyzedSpec, EndpointInfo, ParameterInfo, ResponseInfo } from "./types";
 
-export async function parseOpenApiSpec(url: string): Promise<AnalyzedSpec> {
+export async function parseOpenApiSpec(
+  url: string, 
+  onLog?: (msg: string, type?: "info" | "error" | "success") => void
+): Promise<AnalyzedSpec> {
   try {
-    // Use the proxy to avoid CORS issues
+    onLog?.(`Fetching spec from: ${url}`, "info");
     const proxyUrl = `/api/proxy?url=${encodeURIComponent(url)}`;
     const response = await fetch(proxyUrl);
+    
     if (!response.ok) {
-      const errorData = await response.json();
-      throw new Error(errorData.error || "Failed to fetch spec through proxy");
+      const errorText = await response.text();
+      throw new Error(errorText || `Failed to fetch: ${response.statusText}`);
     }
     
-    const spec = await response.json();
+    const content = await response.text();
+    onLog?.(`Successfully fetched ${content.length} bytes`, "success");
+
+    let spec;
+    try {
+      spec = JSON.parse(content);
+      onLog?.("Detected JSON format", "info");
+    } catch (e) {
+      onLog?.("Detected YAML format (parsing as text)", "info");
+      spec = content; // SwaggerParser handles strings as well
+    }
     
-    // Dereference the spec object
+    onLog?.("Dereferencing specification...", "info");
     const api = await dereference(spec);
+    onLog?.("Successfully dereferenced spec", "success");
     
     return transformSpec(api as any);
   } catch (error) {
-    console.error("Error parsing OpenAPI spec:", error);
-    throw new Error(error instanceof Error ? error.message : "Failed to parse spec");
+    onLog?.(`Parsing failed: ${error instanceof Error ? error.message : String(error)}`, "error");
+    throw error;
   }
 }
 

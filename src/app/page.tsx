@@ -14,13 +14,19 @@ export default function Home() {
   const [spec, setSpec] = useState<AnalyzedSpec | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [logs, setLogs] = useState<{msg: string, type: string}[]>([]);
+
+  const addLog = (msg: string, type: string = "info") => {
+    setLogs(prev => [...prev, { msg, type }]);
+  };
 
   const handleAnalyze = async (url: string) => {
     setLoading(true);
     setError(null);
     setSpec(null);
+    setLogs([]);
     try {
-      const result = await parseOpenApiSpec(url);
+      const result = await parseOpenApiSpec(url, addLog);
       setSpec(result);
     } catch (err) {
       console.error(err);
@@ -49,6 +55,28 @@ export default function Home() {
         </motion.div>
 
         <UrlInput onAnalyze={handleAnalyze} isLoading={loading} />
+
+        {logs.length > 0 && (
+          <motion.div 
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            className={styles.logConsole}
+          >
+            <div className={styles.logHeader}>
+              <Terminal size={14} />
+              <span>Debug Console</span>
+            </div>
+            <div className={styles.logBody}>
+              {logs.map((log, i) => (
+                <div key={i} className={`${styles.logLine} ${styles[log.type]}`}>
+                  <span className={styles.logTimestamp}>[{new Date().toLocaleTimeString()}]</span>
+                  {log.msg}
+                </div>
+              ))}
+              {loading && <div className={styles.logPulse}>_</div>}
+            </div>
+          </motion.div>
+        )}
       </div>
 
       <AnimatePresence>

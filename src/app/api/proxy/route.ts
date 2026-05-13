@@ -13,8 +13,10 @@ export async function GET(req: NextRequest) {
       throw new Error(`Failed to fetch: ${response.statusText}`);
     }
 
-    const data = await response.json();
-    return NextResponse.json(data);
+    const data = await response.text();
+    return new NextResponse(data, {
+      headers: { "Content-Type": response.headers.get("Content-Type") || "text/plain" },
+    });
   } catch (error) {
     console.error("Proxy error:", error);
     return NextResponse.json(
