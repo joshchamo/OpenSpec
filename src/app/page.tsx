@@ -18,6 +18,7 @@ export default function Home() {
   const handleAnalyze = async (url: string) => {
     setLoading(true);
     setError(null);
+    setSpec(null);
     try {
       const result = await parseOpenApiSpec(url);
       setSpec(result);
