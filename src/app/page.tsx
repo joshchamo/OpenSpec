@@ -14,10 +14,15 @@ export default function Home() {
   const [spec, setSpec] = useState<AnalyzedSpec | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [logs, setLogs] = useState<{msg: string, type: string}[]>([]);
+  const [logs, setLogs] = useState<{msg: string, type: string, timestamp: number, delta?: number}[]>([]);
 
   const addLog = (msg: string, type: string = "info") => {
-    setLogs(prev => [...prev, { msg, type }]);
+    const now = Date.now();
+    setLogs(prev => {
+      const lastLog = prev[prev.length - 1];
+      const delta = lastLog ? now - lastLog.timestamp : undefined;
+      return [...prev, { msg, type, timestamp: now, delta }];
+    });
   };
 
   const handleAnalyze = async (url: string) => {
@@ -69,8 +74,13 @@ export default function Home() {
             <div className={styles.logBody}>
               {logs.map((log, i) => (
                 <div key={i} className={`${styles.logLine} ${styles[log.type]}`}>
-                  <span className={styles.logTimestamp}>[{new Date().toLocaleTimeString()}]</span>
+                  <span className={styles.logTimestamp}>
+                    [{new Date(log.timestamp).toLocaleTimeString()}]
+                  </span>
                   {log.msg}
+                  {log.delta !== undefined && (
+                    <span className={styles.logDelta}>+{log.delta}ms</span>
+                  )}
                 </div>
               ))}
               {loading && <div className={styles.logPulse}>_</div>}
