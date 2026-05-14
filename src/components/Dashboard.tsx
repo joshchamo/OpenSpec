@@ -4,7 +4,9 @@ import React, { useState, useMemo } from "react";
 import { AnalyzedSpec, EndpointInfo } from "@/lib/types";
 import { EndpointCard } from "./EndpointCard";
 import { SchemaCard } from "./SchemaCard";
-import { Info, List, Database, ShieldCheck, Search, ChevronDown, ChevronUp, Folder } from "lucide-react";
+import { QualityReport } from "./QualityReport";
+import { generateQualityReport } from "@/lib/linter";
+import { Info, List, Database, ShieldCheck, Search, ChevronDown, ChevronUp, Folder, ShieldAlert, CheckCircle2 } from "lucide-react";
 import styles from "./Dashboard.module.css";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -51,8 +53,10 @@ const TagGroup: React.FC<{ tag: string; endpoints: EndpointInfo[]; defaultOpen?:
 };
 
 export const Dashboard: React.FC<DashboardProps> = ({ spec }) => {
-  const [activeTab, setActiveTab] = useState<"endpoints" | "schemas" | "info">("endpoints");
+  const [activeTab, setActiveTab] = useState<"endpoints" | "schemas" | "info" | "quality">("endpoints");
   const [searchQuery, setSearchQuery] = useState("");
+
+  const qualityReport = useMemo(() => generateQualityReport(spec), [spec]);
 
   const filteredEndpoints = useMemo(() => {
     if (!searchQuery.trim()) return spec.endpoints;
@@ -91,6 +95,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ spec }) => {
   const tabs = [
     { id: "endpoints", label: "Endpoints", icon: List, count: filteredEndpoints.length },
     { id: "schemas", label: "Schemas", icon: Database, count: filteredSchemas.length },
+    { id: "quality", label: "Quality", icon: ShieldAlert, count: qualityReport.stats.errors + qualityReport.stats.warnings },
     { id: "info", label: "Metadata", icon: Info },
   ];
 
@@ -165,6 +170,17 @@ export const Dashboard: React.FC<DashboardProps> = ({ spec }) => {
                   <p>No schemas found matching "{searchQuery}"</p>
                 </div>
               )}
+            </motion.div>
+          )}
+
+          {activeTab === "quality" && (
+            <motion.div
+              key="quality"
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: 20 }}
+            >
+              <QualityReport report={qualityReport} />
             </motion.div>
           )}
 

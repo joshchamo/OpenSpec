@@ -35,3 +35,20 @@ export interface ResponseInfo {
   description?: string;
   content?: Record<string, any>;
 }
+
+export interface QualityIssue {
+  severity: "error" | "warning" | "info";
+  category: "Documentation" | "Security" | "Best Practice";
+  message: string;
+  location: string;
+}
+
+export interface QualityReport {
+  score: number;
+  issues: QualityIssue[];
+  stats: {
+    errors: number;
+    warnings: number;
+    info: number;
+  };
+}
