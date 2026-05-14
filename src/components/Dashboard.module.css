@@ -203,6 +203,10 @@
 }
 
 @media (max-width: 768px) {
+  .container {
+    padding: 0 1rem 3rem;
+  }
+
   .grid {
     grid-template-columns: 1fr;
   }
@@ -210,9 +214,32 @@
   .controls {
     flex-direction: column;
     align-items: stretch;
+    gap: 1rem;
+  }
+  
+  .tabs {
+    flex-wrap: wrap;
+    justify-content: center;
+    border-radius: 12px;
+  }
+
+  .tab {
+    flex: 1;
+    min-width: 120px;
+    justify-content: center;
+    padding: 0.5rem 0.75rem;
+    font-size: 0.8rem;
   }
   
   .searchWrapper {
     max-width: none;
+  }
+
+  .tagHeader {
+    padding: 1rem;
+  }
+
+  .tagContent {
+    padding: 1rem;
   }
 }

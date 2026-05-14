@@ -8,12 +8,12 @@ export const Header: React.FC = () => {
   return (
     <header className={styles.header}>
       <div className={styles.container}>
-        <div className={styles.logo}>
+        <button className={styles.logo} onClick={() => window.location.href = "/"}>
           <div className={styles.iconWrapper}>
             <Zap className={styles.icon} size={24} />
           </div>
           <h1>Open<span className={styles.gradientText}>Spec</span></h1>
-        </div>
+        </button>
         <div className={styles.badge}>
           <Shield size={14} />
           <span>QA Professional Tool</span>
