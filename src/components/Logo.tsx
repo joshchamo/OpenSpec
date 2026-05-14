@@ -21,27 +21,27 @@ export const Logo: React.FC<{ className?: string }> = ({ className }) => {
         </linearGradient>
       </defs>
 
-      {/* Left Bracket - Drawn exactly to frame the S */}
+      {/* Left Bracket - Now with the proper left-pointing beak at X=7 */}
       <path 
-        d="M 12.5 6.5 Q 8.5 6.5 8.5 10 Q 8.5 13 11 13 Q 8.5 13 8.5 16 Q 8.5 19.5 12.5 19.5" 
+        d="M 13 6 Q 10 6 10 9.5 Q 10 13 7 13 Q 10 13 10 16.5 Q 10 20 13 20" 
         stroke="#94a3b8" 
         strokeWidth="1.5" 
         strokeLinecap="round" 
         strokeLinejoin="round" 
       />
 
-      {/* Right Bracket */}
+      {/* Right Bracket - Now with the proper right-pointing beak at X=29 */}
       <path 
-        d="M 23.5 6.5 Q 27.5 6.5 27.5 10 Q 27.5 13 25 13 Q 27.5 13 27.5 16 Q 27.5 19.5 23.5 19.5" 
+        d="M 23 6 Q 26 6 26 9.5 Q 26 13 29 13 Q 26 13 26 16.5 Q 26 20 23 20" 
         stroke="#94a3b8" 
         strokeWidth="1.5" 
         strokeLinecap="round" 
         strokeLinejoin="round" 
       />
 
-      {/* Central Slash - connecting bottom-left to top-right */}
+      {/* Central Slash - Exact same height as brackets (Y: 20 to 6) */}
       <path 
-        d="M 12.5 20.5 L 23.5 5.5" 
+        d="M 13 20 L 23 6" 
         stroke="url(#logoGrad)" 
         strokeWidth="2.5" 
         strokeLinecap="round" 
