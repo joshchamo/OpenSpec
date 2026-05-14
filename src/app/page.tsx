@@ -55,7 +55,7 @@ export default function Home() {
             <Terminal size={14} />
             <span>Interactive API Explorer</span>
           </div>
-          <h2>Explore API Specs <br /> <span className={styles.accent}>With Precision.</span></h2>
+          <h2>Explore and Validate <br /> <span className={styles.accent}>OpenAPI Specifications.</span></h2>
           <p>Paste your OpenAPI or Swagger URL to instantly extract parameters, schemas, and endpoint details for professional QA validation.</p>
         </motion.div>
 
