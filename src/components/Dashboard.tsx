@@ -6,7 +6,7 @@ import { EndpointCard } from "./EndpointCard";
 import { SchemaCard } from "./SchemaCard";
 import { QualityReport } from "./QualityReport";
 import { generateQualityReport } from "@/lib/linter";
-import { Info, List, Database, ShieldCheck, Search, ChevronDown, ChevronUp, Folder, ShieldAlert, CheckCircle2 } from "lucide-react";
+import { Info, List, Database, ShieldCheck, Search, ChevronDown, ChevronUp, Folder, ShieldAlert, CheckCircle2, X } from "lucide-react";
 import styles from "./Dashboard.module.css";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -125,6 +125,15 @@ export const Dashboard: React.FC<DashboardProps> = ({ spec }) => {
             onChange={(e) => setSearchQuery(e.target.value)}
             className={styles.searchInput}
           />
+          {searchQuery && (
+            <button 
+              className={styles.clearSearch} 
+              onClick={() => setSearchQuery("")}
+              aria-label="Clear search"
+            >
+              <X size={16} />
+            </button>
+          )}
         </div>
       </div>
 
