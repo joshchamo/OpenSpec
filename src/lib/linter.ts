@@ -34,18 +34,27 @@ export function generateQualityReport(spec: AnalyzedSpec): QualityReport {
       });
     }
 
-    const hasSuccess = ep.responses.some(r => r.code.startsWith("2"));
-    if (!hasSuccess) {
+    const hasExplicitSuccess = ep.responses.some(r => r.code.startsWith("2"));
+    const hasDefault = ep.responses.some(r => r.code === "default");
+
+    if (!hasExplicitSuccess && !hasDefault) {
       issues.push({
         severity: "error",
         category: "Best Practice",
-        message: "No success (2xx) response defined",
+        message: "No success response defined (missing 2xx and 'default')",
+        location: loc
+      });
+    } else if (!hasExplicitSuccess && hasDefault) {
+      issues.push({
+        severity: "info",
+        category: "Best Practice",
+        message: "Endpoint uses 'default' response for success (explicit 2xx is preferred)",
         location: loc
       });
     }
 
-    const hasError = ep.responses.some(r => r.code.startsWith("4") || r.code.startsWith("5") || r.code === "default");
-    if (!hasError) {
+    const hasExplicitError = ep.responses.some(r => r.code.startsWith("4") || r.code.startsWith("5"));
+    if (!hasExplicitError && !hasDefault) {
       issues.push({
         severity: "info",
         category: "Best Practice",
