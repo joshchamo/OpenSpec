@@ -1,7 +1,19 @@
 {
-  "name": "temp-app",
-  "version": "0.1.0",
+  "name": "openspec",
+  "version": "1.0.0",
   "private": true,
+  "description": "Premium OpenAPI & Swagger Explorer for professional QA validation and performance analysis.",
+  "keywords": [
+    "openapi",
+    "swagger",
+    "api-explorer",
+    "qa-testing",
+    "api-validation",
+    "schema-viewer",
+    "specification",
+    "rest-api",
+    "developer-tools"
+  ],
   "scripts": {
     "dev": "next dev",
     "build": "next build",

@@ -1,36 +1,75 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# OpenSpec | Premium OpenAPI & Swagger Explorer
 
-## Getting Started
+**OpenSpec** is a high-performance, professional-grade web application designed to parse, validate, and explore OpenAPI (3.x) and Swagger (2.0) specifications with precision. 
 
-First, run the development server:
+Built for QA engineers, developers, and security analysts, OpenSpec transforms complex API definitions into a readable, searchable, and interactive dashboard in seconds.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+🚀 **Live Demo:** [openspec.vercel.app](https://openspec.vercel.app/)
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## ✨ Key Features
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### 🔍 Advanced Exploration
+- **Tag-Based Grouping**: Automatically organizes hundreds of endpoints into logical, collapsible folder categories (e.g., `repos`, `issues`, `users`).
+- **Global Search**: Instantly filter endpoints and schemas by path, method, name, or tag.
+- **Recursive Schema Tables**: Professional property rendering (Name, Type, Required, Description) that mimics industry-standard documentation tools like Redoc.
 
-## Learn More
+### 🛠 Professional QA Utility
+- **Debug Console**: Real-time logging of the fetch, parse, and dereference lifecycle.
+- **Performance Metrics**: Step-by-step timing (+Xms) to analyze the scale and complexity of large specifications.
+- **Contract Validation**: Clearly highlights required fields, enums, and nested data structures to ensure contract compliance.
 
-To learn more about Next.js, take a look at the following resources:
+### 🌐 High-Scale Support
+- **YAML & JSON Support**: Native handling of both formats via robust internal conversion.
+- **CORS-Safe Proxying**: Server-side proxying ensures you can analyze specifications from any domain without CORS errors.
+- **Industry Examples**: One-click analysis of massive specs like **Cloudflare**, **GitHub**, **Stripe**, and **OpenAI**.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+---
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 🎨 Design Philosophy
+OpenSpec features a premium **Glassmorphism UI** optimized for modern browsers.
+- **Vibrant Dark Mode**: Sleek, high-contrast interface for reduced eye strain.
+- **Micro-Animations**: Powered by `framer-motion` for smooth, interactive transitions.
+- **Responsive Layout**: Designed to be fully functional on desktops, tablets, and mobile devices.
 
-## Deploy on Vercel
+---
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 🛠 Tech Stack
+- **Framework**: [Next.js (App Router)](https://nextjs.org/)
+- **Styling**: Vanilla CSS Modules (Glassmorphism & CSS Variables)
+- **Icons**: [Lucide React](https://lucide.dev/)
+- **Animations**: [Framer Motion](https://www.framer.com/motion/)
+- **Spec Parsing**: [@readme/openapi-parser](https://github.com/readmeio/openapi-parser) & [js-yaml](https://github.com/nodeca/js-yaml)
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
+
+## 🚀 Getting Started
+
+### Prerequisites
+- Node.js 18.x or later
+- npm or yarn
+
+### Installation
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/joshchamo/OpenSpec.git
+   ```
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+3. Run the development server:
+   ```bash
+   npm run dev
+   ```
+4. Open [http://localhost:3000](http://localhost:3000) in your browser.
+
+---
+
+## 📄 License
+This project is licensed under the MIT License.
+
+---
+
+Developed with ❤️ for the QA & Developer Community.
