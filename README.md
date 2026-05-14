@@ -2,7 +2,7 @@
 
 **OpenSpec** is a high-performance, professional-grade web application designed to parse, validate, and explore OpenAPI (3.x) and Swagger (2.0) specifications with precision. 
 
-Built for QA engineers, developers, and security analysts, OpenSpec transforms complex API definitions into a readable, searchable, and interactive dashboard in seconds.
+Built for QA engineers, developers, and API consumers, OpenSpec transforms complex API definitions into a readable, searchable, and interactive dashboard in seconds.
 
 🚀 **Live Demo:** [openspec.vercel.app](https://openspec.vercel.app/)
 
@@ -39,7 +39,7 @@ Standard documentation viewers silently paper over these gaps. **OpenSpec surfac
 ---
 
 ## 🎨 Design Philosophy
-OpenSpec features a premium **Glassmorphism UI** optimized for modern browsers.
+OpenSpec features a **Glassmorphism UI** design optimized for modern browsers.
 - **Vibrant Dark Mode**: Sleek, high-contrast interface for reduced eye strain.
 - **Micro-Animations**: Powered by `framer-motion` for smooth, interactive transitions.
 - **Responsive Layout**: Designed to be fully functional on desktops, tablets, and mobile devices.
