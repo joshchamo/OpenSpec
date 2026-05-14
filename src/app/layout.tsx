@@ -13,8 +13,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "OpenAPI Analyzer | Professional API Spec Inspector",
-  description: "A high-performance OpenAPI and Swagger specification analyzer for QA engineers and developers. Inspect endpoints, parameters, and data models with ease.",
+  title: "OpenSpec | Premium OpenAPI & Swagger Explorer",
+  description: "OpenSpec is a high-performance explorer for OpenAPI and Swagger specifications. Designed for QA engineers and developers to validate, inspect, and document API contracts with precision.",
 };
 
 export default function RootLayout({

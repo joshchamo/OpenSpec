@@ -12,7 +12,7 @@ export const Header: React.FC = () => {
           <div className={styles.iconWrapper}>
             <Zap className={styles.icon} size={24} />
           </div>
-          <h1>OpenAPI <span className={styles.gradientText}>Analyzer</span></h1>
+          <h1>Open<span className={styles.gradientText}>Spec</span></h1>
         </div>
         <div className={styles.badge}>
           <Shield size={14} />
