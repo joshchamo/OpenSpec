@@ -10,6 +10,7 @@ export const Logo: React.FC<{ className?: string }> = ({ className }) => {
       xmlns="http://www.w3.org/2000/svg"
       className={className}
     >
+      {/* Background & Border */}
       <rect width="36" height="26" rx="8" fill="white" fillOpacity="0.05"/>
       <rect x="0.5" y="0.5" width="35" height="25" rx="7.5" stroke="white" strokeOpacity="0.1"/>
       
@@ -20,42 +21,31 @@ export const Logo: React.FC<{ className?: string }> = ({ className }) => {
         </linearGradient>
       </defs>
 
-      {/* Left Bracket */}
-      <text 
-        x="6" 
-        y="18.5" 
-        fontFamily="'Monaco', 'Courier New', monospace" 
-        fontSize="18" 
-        fontWeight="300" 
-        fill="#94a3b8"
-      >
-        {"{"}
-      </text>
+      {/* Left Bracket - Drawn exactly to frame the S */}
+      <path 
+        d="M 12.5 6.5 Q 8.5 6.5 8.5 10 Q 8.5 13 11 13 Q 8.5 13 8.5 16 Q 8.5 19.5 12.5 19.5" 
+        stroke="#94a3b8" 
+        strokeWidth="1.5" 
+        strokeLinecap="round" 
+        strokeLinejoin="round" 
+      />
 
       {/* Right Bracket */}
-      <text 
-        x="24" 
-        y="18.5" 
-        fontFamily="'Monaco', 'Courier New', monospace" 
-        fontSize="18" 
-        fontWeight="300" 
-        fill="#94a3b8"
-      >
-        {"}"}
-      </text>
+      <path 
+        d="M 23.5 6.5 Q 27.5 6.5 27.5 10 Q 27.5 13 25 13 Q 27.5 13 27.5 16 Q 27.5 19.5 23.5 19.5" 
+        stroke="#94a3b8" 
+        strokeWidth="1.5" 
+        strokeLinecap="round" 
+        strokeLinejoin="round" 
+      />
 
-      {/* Central Slash - Optimized for 'S' flow */}
-      <text 
-        x="12" 
-        y="19" 
-        fontFamily="'Monaco', 'Courier New', monospace" 
-        fontSize="19" 
-        fontWeight="800" 
-        fill="url(#logoGrad)" 
-        transform="rotate(-2 18 13)"
-      >
-        /
-      </text>
+      {/* Central Slash - connecting bottom-left to top-right */}
+      <path 
+        d="M 12.5 20.5 L 23.5 5.5" 
+        stroke="url(#logoGrad)" 
+        strokeWidth="2.5" 
+        strokeLinecap="round" 
+      />
     </svg>
   );
 };
