@@ -1,88 +1,125 @@
 "use client";
 
-import React from "react";
+import React, { useState, useMemo } from "react";
 import { QualityReport as QualityReportType } from "@/lib/types";
 import { AlertTriangle, AlertCircle, Info, CheckCircle2, ShieldAlert } from "lucide-react";
 import styles from "./QualityReport.module.css";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 
 interface QualityReportProps {
   report: QualityReportType;
 }
 
+type SeverityFilter = "all" | "error" | "warning" | "info";
+
 export const QualityReport: React.FC<QualityReportProps> = ({ report }) => {
-  const getScoreColor = (score: number) => {
-    if (score >= 90) return "#10b981";
-    if (score >= 70) return "#f59e0b";
-    return "#ef4444";
-  };
+  const [filter, setFilter] = useState<SeverityFilter>("all");
+
+  const filteredIssues = useMemo(() => {
+    if (filter === "all") return report.issues;
+    return report.issues.filter(issue => issue.severity === filter);
+  }, [report.issues, filter]);
 
   return (
     <div className={styles.container}>
       <div className={styles.header}>
-        <div className={styles.scoreCircle} style={{ borderColor: getScoreColor(report.score) }}>
-          <span className={styles.scoreValue}>{report.score}</span>
-          <span className={styles.scoreLabel}>Score</span>
-        </div>
-        
         <div className={styles.stats}>
-          <div className={`${styles.statItem} ${styles.error}`}>
+          <button 
+            className={`${styles.statItem} ${styles.all} ${filter === "all" ? styles.active : ""}`}
+            onClick={() => setFilter("all")}
+          >
+            <CheckCircle2 size={20} />
+            <div className={styles.statInfo}>
+              <span className={styles.statCount}>{report.issues.length}</span>
+              <span className={styles.statName}>Total Issues</span>
+            </div>
+          </button>
+          
+          <button 
+            className={`${styles.statItem} ${styles.error} ${filter === "error" ? styles.active : ""}`}
+            onClick={() => setFilter("error")}
+          >
             <AlertCircle size={20} />
             <div className={styles.statInfo}>
               <span className={styles.statCount}>{report.stats.errors}</span>
               <span className={styles.statName}>Errors</span>
             </div>
-          </div>
-          <div className={`${styles.statItem} ${styles.warning}`}>
+          </button>
+          
+          <button 
+            className={`${styles.statItem} ${styles.warning} ${filter === "warning" ? styles.active : ""}`}
+            onClick={() => setFilter("warning")}
+          >
             <AlertTriangle size={20} />
             <div className={styles.statInfo}>
               <span className={styles.statCount}>{report.stats.warnings}</span>
               <span className={styles.statName}>Warnings</span>
             </div>
-          </div>
-          <div className={`${styles.statItem} ${styles.info}`}>
+          </button>
+          
+          <button 
+            className={`${styles.statItem} ${styles.info} ${filter === "info" ? styles.active : ""}`}
+            onClick={() => setFilter("info")}
+          >
             <Info size={20} />
             <div className={styles.statInfo}>
               <span className={styles.statCount}>{report.stats.info}</span>
               <span className={styles.statName}>Insights</span>
             </div>
-          </div>
+          </button>
         </div>
       </div>
 
       <div className={styles.issueList}>
-        <h3>Detected Issues ({report.issues.length})</h3>
-        {report.issues.length === 0 ? (
-          <div className={styles.perfectScore}>
-            <CheckCircle2 size={48} color="#10b981" />
-            <p>Perfect Score! No issues detected in this specification.</p>
-          </div>
-        ) : (
-          <div className={styles.issues}>
-            {report.issues.map((issue, i) => (
-              <motion.div 
-                key={i}
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: i * 0.05 }}
-                className={`${styles.issueCard} ${styles[issue.severity]}`}
-              >
-                <div className={styles.issueIcon}>
-                  {issue.severity === "error" && <ShieldAlert size={18} />}
-                  {issue.severity === "warning" && <AlertTriangle size={18} />}
-                  {issue.severity === "info" && <Info size={18} />}
-                </div>
-                <div className={styles.issueMain}>
-                  <div className={styles.issueHeader}>
-                    <span className={styles.category}>{issue.category}</span>
-                    <span className={styles.location}>{issue.location}</span>
+        <div className={styles.listHeader}>
+          <h3>
+            {filter === "all" ? "All Issues" : `${filter.charAt(0).toUpperCase() + filter.slice(1)}s`}
+            <span className={styles.countBadge}>{filteredIssues.length}</span>
+          </h3>
+        </div>
+
+        <AnimatePresence mode="popLayout">
+          {filteredIssues.length === 0 ? (
+            <motion.div 
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              className={styles.perfectScore}
+            >
+              <CheckCircle2 size={48} color="#10b981" />
+              <p>No {filter !== "all" ? filter : ""} issues detected in this specification.</p>
+            </motion.div>
+          ) : (
+            <div className={styles.issues}>
+              {filteredIssues.slice(0, 100).map((issue, i) => (
+                <motion.div 
+                  key={`${issue.location}-${issue.message}-${i}`}
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, scale: 0.95 }}
+                  className={`${styles.issueCard} ${styles[issue.severity]}`}
+                >
+                  <div className={styles.issueIcon}>
+                    {issue.severity === "error" && <ShieldAlert size={18} />}
+                    {issue.severity === "warning" && <AlertTriangle size={18} />}
+                    {issue.severity === "info" && <Info size={18} />}
                   </div>
-                  <p className={styles.message}>{issue.message}</p>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        )}
+                  <div className={styles.issueMain}>
+                    <div className={styles.issueHeader}>
+                      <span className={styles.category}>{issue.category}</span>
+                      <span className={styles.location}>{issue.location}</span>
+                    </div>
+                    <p className={styles.message}>{issue.message}</p>
+                  </div>
+                </motion.div>
+              ))}
+              {filteredIssues.length > 100 && (
+                <p className={styles.limitNotice}>
+                  Showing first 100 issues. Use filters to narrow down the results.
+                </p>
+              )}
+            </div>
+          )}
+        </AnimatePresence>
       </div>
     </div>
   );
