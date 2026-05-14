@@ -22,6 +22,13 @@ Built for QA engineers, developers, and security analysts, OpenSpec transforms c
 - **Download & Export**: Export full quality findings as a **CSV report** for integration with Jira, Confluence, or internal audit documentation.
 - **Precision Auditing**: Clearly highlights required fields, enums, and nested data structures with a real-time filtered issue list.
 
+---
+
+### 🏆 Real-World Impact: The Petstore Audit
+During validation of the official [Petstore Swagger 2.0 spec](https://petstore.swagger.io/v2/swagger.json), OpenSpec identified undocumented success responses on core endpoints including `POST /pet` and `DELETE /pet/{petId}`. While these gaps are silently ignored by standard documentation viewers, they represent genuine API contract issues that break automated code generation and result in incomplete QA test coverage.
+
+---
+
 ### 🌐 High-Scale Support
 - **YAML & JSON Support**: Native handling of both formats via robust internal conversion.
 - **CORS-Safe Proxying**: Server-side proxying ensures you can analyze specifications from any domain without CORS errors.
